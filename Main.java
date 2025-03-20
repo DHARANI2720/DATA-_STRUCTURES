@@ -9,5 +9,5 @@ public class Main {
             newArr[i + 1] = arr[i]; 
         } 
         System.out.println( Arrays.toString(newArr));
-    }
+    }  
 }

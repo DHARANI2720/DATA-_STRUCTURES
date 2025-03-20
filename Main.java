@@ -7,7 +7,7 @@ public class Main {
         newArr[0] = newElement; 
         for (int i = 0; i < arr.length; i++) {
             newArr[i + 1] = arr[i]; 
-        }
+        } 
         System.out.println( Arrays.toString(newArr));
     }
 }

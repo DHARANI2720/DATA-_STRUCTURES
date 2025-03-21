@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+void deleteLast(struct Node** head) {
+   
+    if (*head == NULL) {
+        printf("The list is already empty.\n");
+        return;
+    }
+
+  
+    if ((*head)->next == NULL) {
+        free(*head);
+        *head = NULL;
+        return;
+    }
+
+   
+    struct Node* temp = *head;
+    while (temp->next && temp->next->next) {
+        temp = temp->next;
+    }
+
+    free(temp->next);
+    temp->next = NULL;
+}
+
+
+void printList(struct Node* head) {
+    if (head == NULL) {
+        printf("The list is empty.\n");
+        return;
+    }
+    
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+void append(struct Node** head, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* temp = *head;
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+
+int main() {
+    struct Node* head = NULL;
+    int n, data;
+
+
+    printf("Enter the number of elements to append: ");
+    scanf("%d", &n);
+
+   
+    for (int i = 0; i < n; i++) {
+        printf("Enter data for node %d: ", i + 1);
+        scanf("%d", &data);
+        append(&head, data);
+    }
+
+
+    printf("Original list: ");
+    printList(head);
+
+  
+    char choice;
+    printf("Do you want to delete the last element? (y/n): ");
+    scanf(" %c", &choice);  
+    if (choice == 'y' || choice == 'Y') {
+        deleteLast(&head);
+        printf("List after deleting the last element: ");
+        printList(head);
+    } else {
+        printf("No element deleted. List remains the same.\n");
+    }
+
+    return 0;
+}
+
